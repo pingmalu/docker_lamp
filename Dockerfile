@@ -10,7 +10,7 @@ RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev p
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN apt-get install -y python-pip python-pyside xvfb
 
-RUN apt-get install -y mysql-server
+RUN apt-get install -y mysql-server php5-mysql
 ADD start-mysqld.sh /start-mysqld.sh
 ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
