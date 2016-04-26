@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM daocloud.io/ubuntu:latest
 MAINTAINER MaLu <malu@malu.me> 
 
 ADD sources.list /etc/apt/sources.list
