@@ -40,6 +40,13 @@ RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 RUN mkdir /root/.pip
 ADD pip.conf /root/.pip/pip.conf
 
+RUN apt-get install -y libffi-dev python-dev python-lxml
+RUN pip install w3lib
+RUN pip install cssselect
+RUN pip install cryptography
+RUN pip install Twisted
+RUN pip install scrapy
+
 ENV HOME /root
 ENV REDIS_DIR /app/data
 WORKDIR /root
