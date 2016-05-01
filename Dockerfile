@@ -55,7 +55,7 @@ VOLUME ["/root","/app"]
 
 #mongodb
 RUN apt-get install -y php5-dev
-RUN wget http://pecl.php.net/get/mongo-1.6.13.tgz -P /root/
+RUN wget http://pecl.php.net/get/mongo-1.6.13.tgz -P /home/
 
 #Enviornment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 100M
