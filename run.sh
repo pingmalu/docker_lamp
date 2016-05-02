@@ -35,9 +35,15 @@ else
     echo "=> Using an existing volume of MySQL"
 fi
 
-
+sed -i '1i\requirepass '$REDIS_PASS /etc/redis/redis.conf
+sed -i 's/^daemonize yes/daemonize no/' /etc/redis/redis.conf
+sed -i 's/^bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
+sed -i 's/^dir \/var\/lib\/redis/dir \/app\/data/' /etc/redis/redis.conf
 sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILESIZE}/" \
     -e "s/^post_max_size.*/post_max_size = ${PHP_POST_MAX_SIZE}/" /etc/php5/apache2/php.ini
+sed -i 's/^bind_ip = 127.0.0.1/bind_ip = 0.0.0.0/' /etc/mongodb.conf
+sed -i 's/^dbpath=\/var\/lib\/mongodb/dbpath=\/app\/mongodb\/db/' /etc/mongodb.conf
+sed -i 's/^logpath=\/var\/log\/mongodb\/mongodb.log/logpath=\/app\/mongodb\/log/' /etc/mongodb.conf
 echo 'extension=mongo.so' >> /etc/php5/apache2/php.ini
 
 exec /usr/bin/supervisord -n

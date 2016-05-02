@@ -10,6 +10,15 @@ RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev p
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN apt-get install -y python-pip python-pyside xvfb
 
+#mongodb redis
+RUN apt-get install -y mongodb redis-server
+ADD start-redis.sh /start-redis.sh
+ADD start-mongodb.sh /start-mongodb.sh
+ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
+ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
+RUN mkdir -p /app/data
+RUN mkdir -p /app/mongodb/db
+
 RUN apt-get install -y mysql-server php5-mysql
 ADD start-mysqld.sh /start-mysqld.sh
 ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
@@ -40,6 +49,7 @@ RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 RUN mkdir /root/.pip
 ADD pip.conf /root/.pip/pip.conf
 
+#scrapy
 RUN apt-get install -y libffi-dev python-dev python-lxml
 RUN pip install w3lib
 RUN pip install cssselect
