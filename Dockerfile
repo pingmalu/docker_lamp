@@ -14,8 +14,10 @@ RUN apt-get install -y python-pip python-pyside xvfb
 RUN apt-get install -y mongodb redis-server
 ADD start-redis.sh /start-redis.sh
 ADD start-mongodb.sh /start-mongodb.sh
-ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
+#ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
+ADD supervisord-redis.conf /supervisord-redis.conf
 ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
+#ADD supervisord-mongodb.conf /supervisord-mongodb.conf
 RUN mkdir -p /app/data
 RUN mkdir -p /app/mongodb/db
 
@@ -23,7 +25,8 @@ RUN apt-get install -y mysql-server php5-mysql
 ADD start-mysqld.sh /start-mysqld.sh
 ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
-ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+#ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+ADD supervisord-mysqld.conf /supervisord-mysqld.conf
 RUN mkdir -p /app/mysql
 
 # Add files.
