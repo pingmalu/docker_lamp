@@ -16,8 +16,8 @@ ADD start-redis.sh /start-redis.sh
 ADD start-mongodb.sh /start-mongodb.sh
 #ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
 ADD supervisord-redis.conf /supervisord-redis.conf
-ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
-#ADD supervisord-mongodb.conf /supervisord-mongodb.conf
+#ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
+ADD supervisord-mongodb.conf /supervisord-mongodb.conf
 RUN mkdir -p /app/data
 RUN mkdir -p /app/mongodb/db
 
