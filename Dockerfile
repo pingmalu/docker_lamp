@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:trusty
 MAINTAINER MaLu <malu@malu.me> 
 
 ADD sources.list /etc/apt/sources.list
