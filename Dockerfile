@@ -74,6 +74,14 @@ RUN cd /home/mongo-1.6.14/ ; phpize
 RUN cd /home/mongo-1.6.14/ ; ./configure
 RUN cd /home/mongo-1.6.14/ ; make install
 
+	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
+RUN	apt-get clean && \
+	apt-get autoclean && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+
+	# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
+	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 #Enviornment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 100M
 ENV PHP_POST_MAX_SIZE 100M
