@@ -60,6 +60,11 @@ RUN pip install cryptography
 RUN pip install Twisted
 RUN pip install scrapy
 
+#sitemap_online
+RUN pip install beautifulsoup4
+RUN pip install redis
+RUN pip install pymongo
+
 ENV HOME /root
 ENV REDIS_DIR /app/data
 WORKDIR /root
