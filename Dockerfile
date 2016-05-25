@@ -33,6 +33,7 @@ RUN mkdir -p /app/mysql
 ADD home/.bashrc /root/.bashrc
 ADD home/.gitconfig /root/.gitconfig
 ADD home/.scripts /root/.scripts
+ADD home/.vimrc /root/.vimrc
 
 ADD start-apache2.sh /start-apache2.sh
 ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
