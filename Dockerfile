@@ -65,6 +65,9 @@ RUN pip install scrapy
 RUN pip install beautifulsoup4
 RUN pip install redis
 RUN pip install pymongo
+#sitemap_online mysql-python install
+RUN apt-get install libmysqlclient-dev
+RUN pip install mysql-python
 
 ENV HOME /root
 ENV REDIS_DIR /app/data
