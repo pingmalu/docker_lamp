@@ -10,6 +10,9 @@ RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev p
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN apt-get install -y python-pip python-pyside xvfb
 
+#添加PHP mcrypt扩展
+RUN php5enmod mcrypt
+
 #mongodb redis
 RUN apt-get install -y mongodb redis-server
 ADD start-redis.sh /start-redis.sh
