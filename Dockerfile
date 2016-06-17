@@ -11,7 +11,7 @@ RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev p
 RUN apt-get install -y python-pip python-pyside xvfb ipython
 
 #OCR文字识别(中文包)
-apt-get install -y tesseract-ocr tesseract-ocr-chi-sim python-opencv python-imaging
+RUN apt-get install -y tesseract-ocr tesseract-ocr-chi-sim python-opencv python-imaging
 
 #添加PHP mcrypt扩展
 RUN php5enmod mcrypt
