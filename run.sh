@@ -4,6 +4,7 @@ mkdir -p /root/.ssh
 mkdir -p /root/.cow
 chmod 700 /root/.ssh
 chmod 600 /root/.ssh/id_rsa
+chmod 777 /root/cow
 
 # if [ "${AUTHORIZED_KEYS}" != "**None**" ]; then
 #     echo "=> Found authorized keys"
