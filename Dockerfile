@@ -86,7 +86,7 @@ ENV HOME /root
 #ENV REDIS_DIR /app/data
 WORKDIR /root
 
-VOLUME /app
+VOLUME /mnt/app
 
 #mongodb
 #RUN apt-get install -y php5-dev
