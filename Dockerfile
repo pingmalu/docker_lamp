@@ -99,7 +99,7 @@ VOLUME ["/root","/app"]
 	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
 RUN	apt-get clean && \
 	apt-get autoclean && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 	# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
 #	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -107,10 +107,10 @@ RUN	apt-get clean && \
 #COPY home/ /root
 
 #Enviornment variables to configure php
-ENV PHP_UPLOAD_MAX_FILESIZE 100M
-ENV PHP_POST_MAX_SIZE 100M
+#ENV PHP_UPLOAD_MAX_FILESIZE 100M
+#ENV PHP_POST_MAX_SIZE 100M
 
-ENV AUTHORIZED_KEYS **None**
+#ENV AUTHORIZED_KEYS **None**
 
 
 EXPOSE 22 80 6379 443 21 23 8080 8888 8000 27017 3306
