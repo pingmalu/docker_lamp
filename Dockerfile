@@ -58,21 +58,21 @@ ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
 # config to enable .htaccess
-ADD apache_default /etc/apache2/sites-available/000-default.conf
-RUN a2enmod rewrite
+#ADD apache_default /etc/apache2/sites-available/000-default.conf
+#RUN a2enmod rewrite
 
-RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
+#RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 
-RUN mkdir /root/.pip
-ADD pip.conf /root/.pip/pip.conf
+#RUN mkdir /root/.pip
+#ADD pip.conf /root/.pip/pip.conf
 
 #scrapy
-RUN apt-get install -y libffi-dev python-dev python-lxml
-RUN pip install w3lib
-RUN pip install cssselect
-RUN pip install cryptography
-RUN pip install Twisted
-RUN pip install scrapy
+#RUN apt-get install -y libffi-dev python-dev python-lxml
+#RUN pip install w3lib
+#RUN pip install cssselect
+#RUN pip install cryptography
+#RUN pip install Twisted
+#RUN pip install scrapy
 
 #sitemap_online
 #RUN pip install beautifulsoup4
