@@ -23,22 +23,22 @@ ADD supervisord-cow.conf /etc/supervisor/conf.d/supervisord-cow.conf
 
 #mongodb redis
 #RUN apt-get install -y mongodb redis-server
-ADD start-redis.sh /start-redis.sh
-ADD start-mongodb.sh /start-mongodb.sh
+#ADD start-redis.sh /start-redis.sh
+#ADD start-mongodb.sh /start-mongodb.sh
 #ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
-ADD supervisord-redis.conf /supervisord-redis.conf
+#ADD supervisord-redis.conf /supervisord-redis.conf
 #ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
-ADD supervisord-mongodb.conf /supervisord-mongodb.conf
-RUN mkdir -p /app/data
-RUN mkdir -p /app/mongodb/db
+#ADD supervisord-mongodb.conf /supervisord-mongodb.conf
+#RUN mkdir -p /app/data
+#RUN mkdir -p /app/mongodb/db
 
-RUN apt-get install -y mysql-server php5-mysql
-ADD start-mysqld.sh /start-mysqld.sh
-ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
-ADD my.cnf /etc/mysql/conf.d/my.cnf
+#RUN apt-get install -y mysql-server php5-mysql
+#ADD start-mysqld.sh /start-mysqld.sh
+#ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
+#ADD my.cnf /etc/mysql/conf.d/my.cnf
 #ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
-ADD supervisord-mysqld.conf /supervisord-mysqld.conf
-RUN mkdir -p /app/mysql
+#ADD supervisord-mysqld.conf /supervisord-mysqld.conf
+#RUN mkdir -p /app/mysql
 
 # Add files.
 ADD home/.bashrc /root/.bashrc
@@ -46,13 +46,13 @@ ADD home/.gitconfig /root/.gitconfig
 ADD home/.scripts /root/.scripts
 ADD home/.vimrc /root/.vimrc
 
-ADD start-apache2.sh /start-apache2.sh
+#ADD start-apache2.sh /start-apache2.sh
 #ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-apache2.conf /supervisord-apache2.conf
+#ADD supervisord-apache2.conf /supervisord-apache2.conf
 #ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
-ADD supervisord-sshd.conf /supervisord-sshd.conf
+#ADD supervisord-sshd.conf /supervisord-sshd.conf
 
-ADD set_root_pw.sh /set_root_pw.sh
+#ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
 #RUN chmod +x /*.sh
 RUN chmod 755 /*.sh
@@ -83,10 +83,10 @@ RUN chmod 755 /*.sh
 #RUN pip install mysql-python
 
 ENV HOME /root
-ENV REDIS_DIR /app/data
+#ENV REDIS_DIR /app/data
 WORKDIR /root
 
-VOLUME ["/root","/app"]
+VOLUME ["/app"]
 
 #mongodb
 #RUN apt-get install -y php5-dev
@@ -113,5 +113,5 @@ RUN	apt-get clean && \
 #ENV AUTHORIZED_KEYS **None**
 
 
-EXPOSE 22 80 6379 443 21 23 8080 8888 8000 27017 3306
+EXPOSE 88
 CMD ["/run.sh"]
