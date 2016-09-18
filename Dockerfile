@@ -8,6 +8,29 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
 RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+#7z安装
+RUN apt-get install -y p7zip p7zip-full p7zip-rar
+
+#hashcat
+#hashcat v3.10需要的opencl环境
+#RUN apt-get install -y ocl-icd-libopencl1
+#RUN wget http://registrationcenter-download.intel.com/akdlm/irc_nas/9019/opencl_runtime_16.1_x64_ubuntu_5.2.0.10002.tgz -P /home/
+#RUN tar -zxvf /home/opencl_runtime_16.1_x64_ubuntu_5.2.0.10002.tgz -C /home/
+#这里需要用户交互操作
+#RUN cd /home/opencl_runtime_16.1_x64_ubuntu_5.2.0.10002/ ; ./install.sh
+
+#hashcat v2.00
+RUN wget https://hashcat.net/files_legacy/hashcat-2.00.7z -P /home
+cd /home ; 7z x hashcat-2.00.7z
+#获取系统位数：uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'
+ln -s /home/hashcat-2.00/hashcat-cli`uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'`.bin /usr/local/bin/hashcat
+
+#cpulimit
+RUN cd /home ; git clone https://github.com/opsengine/cpulimit.git ; cd cpulimit ; make
+RUN cp /home/cpulimit/src/cpulimit /usr/local/bin/
+
+#PIP
 RUN apt-get install -y python-pip python-pyside xvfb ipython
 
 #OCR文字识别(中文包)
