@@ -22,9 +22,9 @@ RUN apt-get install -y p7zip p7zip-full p7zip-rar
 
 #hashcat v2.00
 RUN wget https://hashcat.net/files_legacy/hashcat-2.00.7z -P /home
-cd /home ; 7z x hashcat-2.00.7z
+RUN cd /home ; 7z x hashcat-2.00.7z
 #获取系统位数：uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'
-ln -s /home/hashcat-2.00/hashcat-cli`uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'`.bin /usr/local/bin/hashcat
+RUN ln -s /home/hashcat-2.00/hashcat-cli`uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'`.bin /usr/local/bin/hashcat
 
 #cpulimit
 RUN cd /home ; git clone https://github.com/opsengine/cpulimit.git ; cd cpulimit ; make
