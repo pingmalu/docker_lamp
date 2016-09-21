@@ -67,7 +67,8 @@ ADD home/.vimrc /root/.vimrc
 
 ADD start-apache2.sh /start-apache2.sh
 ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
+#ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
+ADD supervisord-sshd.conf /supervisord-sshd.conf
 
 ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
