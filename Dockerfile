@@ -25,7 +25,7 @@ RUN wget https://hashcat.net/files_legacy/hashcat-2.00.7z -P /home
 RUN cd /home ; 7z x hashcat-2.00.7z
 #获取系统位数：uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'
 RUN ln -s /home/hashcat-2.00/hashcat-cli`uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'`.bin /usr/local/bin/hashcat
-RUN chmod 777 /home/hashcat-2.00
+RUN chmod 777 -R /home/hashcat-2.00
 
 #cpulimit
 RUN cd /home ; git clone https://github.com/opsengine/cpulimit.git ; cd cpulimit ; make
