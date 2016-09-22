@@ -10,19 +10,24 @@ RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev p
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Install Node.js
-RUN \
-  cd /tmp && \
-  wget http://nodejs.org/dist/node-latest.tar.gz && \
-  tar xvzf node-latest.tar.gz && \
-  rm -f node-latest.tar.gz && \
-  cd node-v* && \
-  ./configure && \
-  CXX="g++ -Wno-unused-local-typedefs" make && \
-  CXX="g++ -Wno-unused-local-typedefs" make install && \
-  cd /tmp && \
-  rm -rf /tmp/node-v* && \
-  npm install -g npm && \
-  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
+RUN apt-get install -y nodejs npm
+RUN npm config set registry http://registry.npm.taobao.org
+RUN npm install -g n
+RUN n stable
+
+#RUN \
+#  cd /tmp && \
+#  wget http://nodejs.org/dist/node-latest.tar.gz && \
+#  tar xvzf node-latest.tar.gz && \
+#  rm -f node-latest.tar.gz && \
+#  cd node-v* && \
+#  ./configure && \
+#  CXX="g++ -Wno-unused-local-typedefs" make && \
+#  CXX="g++ -Wno-unused-local-typedefs" make install && \
+#  cd /tmp && \
+#  rm -rf /tmp/node-v* && \
+#  npm install -g npm && \
+#  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
 # Install newman
 RUN npm install -g newman
