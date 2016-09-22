@@ -24,6 +24,9 @@ RUN \
   npm install -g npm && \
   printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
+# Install newman
+RUN npm install -g newman
+
 #7z安装
 RUN apt-get install -y p7zip p7zip-full p7zip-rar
 
