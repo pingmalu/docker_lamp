@@ -46,4 +46,9 @@ sed -i 's/^dbpath=\/var\/lib\/mongodb/dbpath=\/app\/mongodb\/db/' /etc/mongodb.c
 sed -i 's/^logpath=\/var\/log\/mongodb\/mongodb.log/logpath=\/app\/mongodb\/log/' /etc/mongodb.conf
 echo 'extension=mongo.so' >> /etc/php5/apache2/php.ini
 
+#gateone
+sed -i 's/^port =.*/port = 50360/' /opt/gateone/server.conf
+sed -i 's/^origins =.*/origins = "*"/' /opt/gateone/server.conf
+
+
 exec /usr/bin/supervisord -n

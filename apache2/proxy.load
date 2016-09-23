@@ -1,0 +1,8 @@
+LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
+LoadModule proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so
+LoadModule proxy_ftp_module /usr/lib/apache2/modules/mod_proxy_ftp.so
+LoadModule proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+LoadModule proxy_connect_module /usr/lib/apache2/modules/mod_proxy_connect.so
+LoadModule slotmem_shm_module /usr/lib/apache2/modules/mod_slotmem_shm.so
+LoadModule proxy_wstunnel_module /usr/lib/apache2/modules/mod_proxy_wstunnel.so  
+ProxyPass /webssh/ws ws://127.0.0.1:50360/ws

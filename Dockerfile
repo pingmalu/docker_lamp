@@ -90,13 +90,11 @@ ADD home/.vimrc /root/.vimrc
 
 ADD start-apache2.sh /start-apache2.sh
 ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-#ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
-ADD supervisord-sshd.conf /supervisord-sshd.conf
+ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
+#ADD supervisord-sshd.conf /supervisord-sshd.conf
 
 ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
-#RUN chmod +x /*.sh
-RUN chmod 755 /*.sh
 
 # config to enable .htaccess
 ADD apache_default /etc/apache2/sites-available/000-default.conf
@@ -132,6 +130,13 @@ RUN wget https://github.com/liftoff/GateOne/archive/v1.1.tar.gz -P /home/
 RUN tar zxvf /home/v1.1.tar.gz -C /home/
 RUN cd /home/GateOne-1.1/ ; python setup.py install
 
+ADD apache2/proxy.conf /etc/apache2/conf-enabled/
+ADD apache2/proxy.load /etc/apache2/mods-enabled/
+RUN mkdir -p /app/www/webssh/
+ADD apache2/.htaccess /app/www/webssh/
+
+ADD start-gateone.sh /start-gateone.sh
+ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
 
 
 ENV HOME /root
@@ -155,6 +160,8 @@ RUN	apt-get clean && \
 
 	# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
 	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN chmod 755 /*.sh
 
 #COPY home/ /root
 
