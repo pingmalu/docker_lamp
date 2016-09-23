@@ -109,9 +109,9 @@ ADD pip.conf /root/.pip/pip.conf
 RUN apt-get install -y libffi-dev python-dev python-lxml
 RUN pip install w3lib
 RUN pip install cssselect
-RUN pip install cryptography
-RUN pip install Twisted
-RUN pip install scrapy
+#RUN pip install cryptography
+#RUN pip install Twisted
+#RUN pip install scrapy
 
 #sitemap_online
 RUN pip install beautifulsoup4
