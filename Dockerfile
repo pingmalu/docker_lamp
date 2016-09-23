@@ -125,11 +125,11 @@ RUN pip install mysql-python
 
 #webssh:gateone集成进apache反向代理
 RUN wget https://pypi.python.org/packages/2d/9a/38e855094bd11cba89cd2a50a54c31019ef4a45785fe12be6aa9a7c633de/tornado-2.4.tar.gz#md5=c738af97c31dd70f41f6726cf0968941 -P /home/
-RUN tar zxvf tornado-2.4.tar.gz -C /home/
+RUN tar zxvf /home/tornado-2.4.tar.gz -C /home/
 RUN cd /home/tornado-2.4/ ; python setup.py build && python2 setup.py install
 
 RUN wget https://github.com/liftoff/GateOne/archive/v1.1.tar.gz -P /home/
-RUN tar zxvf v1.1.tar.gz -C /home/
+RUN tar zxvf /home/v1.1.tar.gz -C /home/
 RUN cd /home/GateOne-1.1/ ; python setup.py install
 
 
