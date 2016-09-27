@@ -52,8 +52,10 @@ echo 'extension=mongo.so' >> /etc/php5/apache2/php.ini
 # sed -i 's/^disable_ssl =.*/disable_ssl = True/' /opt/gateone/server.conf
 mkdir -p /app/www/webssh
 mkdir -p /app/www/static
+mkdir -p /app/www/auth
 # 存在不覆盖并不提示
 awk 'BEGIN { cmd="cp -ri /home/webssh/.htaccess /app/www/webssh/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/static.htaccess /app/www/static/.htaccess"; print "n" |cmd; }'
+awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
 
 exec /usr/bin/supervisord -n

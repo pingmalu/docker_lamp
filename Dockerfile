@@ -135,6 +135,7 @@ ADD apache2/proxy.load /etc/apache2/mods-enabled/
 RUN mkdir -p /home/webssh/
 ADD apache2/.htaccess /home/webssh/
 ADD apache2/static/.htaccess /home/webssh/static.htaccess
+ADD apache2/auth/ /home/webssh/
 
 ADD apache2/server.conf /opt/gateone/
 ADD start-gateone.sh /start-gateone.sh
