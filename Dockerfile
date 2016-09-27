@@ -132,10 +132,10 @@ RUN cd /home/GateOne-1.1/ ; python setup.py install
 
 ADD apache2/proxy.conf /etc/apache2/conf-enabled/
 ADD apache2/proxy.load /etc/apache2/mods-enabled/
-RUN mkdir -p /home/webssh/
+RUN mkdir -p /home/webssh/auth
 ADD apache2/.htaccess /home/webssh/
 ADD apache2/static/.htaccess /home/webssh/static.htaccess
-ADD apache2/auth/ /home/webssh/
+ADD apache2/auth/index.php /home/webssh/auth/
 
 ADD apache2/server.conf /opt/gateone/
 ADD start-gateone.sh /start-gateone.sh
