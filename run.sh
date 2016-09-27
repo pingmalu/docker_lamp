@@ -57,5 +57,6 @@ mkdir -p /app/www/auth
 awk 'BEGIN { cmd="cp -ri /home/webssh/.htaccess /app/www/webssh/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/static.htaccess /app/www/static/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
+awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
 
 exec /usr/bin/supervisord -n

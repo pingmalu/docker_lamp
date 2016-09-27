@@ -141,6 +141,8 @@ ADD apache2/server.conf /opt/gateone/
 ADD start-gateone.sh /start-gateone.sh
 ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
 
+ADD apache2/usr /home/webssh/usr
+
 
 ENV HOME /root
 ENV REDIS_DIR /app/data
