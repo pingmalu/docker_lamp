@@ -83,6 +83,7 @@ ADD supervisord-mysqld.conf /supervisord-mysqld.conf
 RUN mkdir -p /app/mysql
 
 # Add files.
+ADD home/.profile /root/.profile
 ADD home/.bashrc /root/.bashrc
 ADD home/.gitconfig /root/.gitconfig
 ADD home/.scripts /root/.scripts
