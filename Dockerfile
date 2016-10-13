@@ -1,6 +1,10 @@
 FROM ubuntu:trusty
 MAINTAINER MaLu <malu@malu.me> 
 
+#时区设置
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ADD sources.list /etc/apt/sources.list
 
 # Install packages
