@@ -3,7 +3,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 alias ls='ls -hFG'
-alias l='ls -lF'
+alias l='ls -lFah'
 alias ll='ls -alF'
 alias lt='ls -ltrF'
 alias ll='ls -alF'
