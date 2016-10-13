@@ -172,12 +172,11 @@ RUN	apt-get clean && \
 	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # 安装百度网盘同步工具syncy
-ADD syncy/syncy.conf /app/syncy.conf
+ADD syncy/syncy.conf /etc/syncy.conf
 ADD syncy/syncy.py /usr/local/bin/syncy.py
 ADD syncy/syncy.sh /etc/init.d/syncy
 RUN chmod 777 /usr/local/bin/syncy.py
 RUN chmod 777 /etc/init.d/syncy
-RUN mkdir -p /app/syncy
 
 RUN chmod 755 /*.sh
 

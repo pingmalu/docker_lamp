@@ -59,4 +59,8 @@ awk 'BEGIN { cmd="cp -ri /home/webssh/static.htaccess /app/www/static/.htaccess"
 awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
 
+# syncy
+awk 'BEGIN { cmd="cp -ri /etc/syncy.conf /app/syncy.conf"; print "n" |cmd; }'
+mkdir -p /app/syncy
+
 exec /usr/bin/supervisord -n
