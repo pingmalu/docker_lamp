@@ -155,7 +155,7 @@ WORKDIR /root
 
 VOLUME ["/root","/app"]
 
-#mongodb
+#mongodb 1.6.14 ; 默认apt-get install php5-mongo 安装的是1.4.5
 RUN apt-get install -y php5-dev
 RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/
 RUN tar -zxvf /home/mongo-1.6.14.tgz -C /home/
