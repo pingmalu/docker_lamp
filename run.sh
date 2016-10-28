@@ -63,8 +63,7 @@ awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /etc/syncy.conf /app/syncy.conf"; print "n" |cmd; }'
 mkdir -p /app/syncy
 
-sed -i 's/^files = .*/files = \/app\/supervisor_conf/' /etc/supervisor/supervisord.conf
-chmod 777 /*.conf
+sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf/' /etc/supervisor/supervisord.conf
 mkdir -p /app/supervisor_conf
 ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
 exec /usr/bin/supervisord -n
