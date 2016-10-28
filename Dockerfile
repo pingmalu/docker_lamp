@@ -94,9 +94,10 @@ ADD home/.scripts /root/.scripts
 ADD home/.vimrc /root/.vimrc
 
 ADD start-apache2.sh /start-apache2.sh
-ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
-#ADD supervisord-sshd.conf /supervisord-sshd.conf
+#ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
+ADD supervisord-apache2.conf /supervisord-apache2.conf
+#ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
+ADD supervisord-sshd.conf /supervisord-sshd.conf
 
 ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
@@ -144,7 +145,8 @@ ADD apache2/auth/index.php /home/webssh/auth/
 
 ADD apache2/server.conf /opt/gateone/
 ADD start-gateone.sh /start-gateone.sh
-ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
+#ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
+ADD supervisord-gateone.conf /supervisord-gateone.conf
 
 ADD apache2/usr /home/webssh/usr
 
