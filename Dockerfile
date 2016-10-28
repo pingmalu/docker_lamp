@@ -20,7 +20,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get install -y nodejs npm
 RUN npm config set registry http://registry.npm.taobao.org
 RUN npm install -g n
-RUN n stable
+RUN n stable && npm install -g newman
 
 #RUN \
 #  cd /tmp && \
@@ -37,7 +37,7 @@ RUN n stable
 #  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
 # Install newman
-RUN npm install -g newman
+#RUN npm install -g newman
 
 #7z安装
 RUN apt-get install -y p7zip p7zip-full p7zip-rar
