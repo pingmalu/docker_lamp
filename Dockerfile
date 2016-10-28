@@ -148,6 +148,8 @@ ADD apache2/auth/index.php /home/webssh/auth/
 
 ADD apache2/server.conf /opt/gateone/
 ADD start-gateone.sh /start-gateone.sh
+ADD startgateone.sh /startgateone.sh
+ADD stopgateone.sh /stopgateone.sh
 #ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
 ADD supervisord-gateone.conf /supervisord-gateone.conf
 
@@ -162,11 +164,11 @@ VOLUME ["/root","/app"]
 
 #mongodb 1.6.14 ; 默认apt-get install php5-mongo 安装的是1.4.5
 RUN apt-get install -y php5-dev
-RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/
-RUN tar -zxvf /home/mongo-1.6.14.tgz -C /home/
-RUN cd /home/mongo-1.6.14/ ; phpize
-RUN cd /home/mongo-1.6.14/ ; ./configure
-RUN cd /home/mongo-1.6.14/ ; make install
+RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
+    tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
+    cd /home/mongo-1.6.14/ ; phpize && \
+    cd /home/mongo-1.6.14/ ; ./configure && \
+    cd /home/mongo-1.6.14/ ; make install
 
 	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
 RUN	apt-get clean && \
@@ -177,8 +179,8 @@ RUN	apt-get clean && \
 ADD syncy/syncy.conf /etc/syncy.conf
 ADD syncy/syncy.py /usr/local/bin/syncy.py
 ADD syncy/syncy.sh /etc/init.d/syncy
-RUN chmod 777 /usr/local/bin/syncy.py
-RUN chmod 777 /etc/init.d/syncy
+RUN chmod 777 /usr/local/bin/syncy.py && \
+    chmod 777 /etc/init.d/syncy
 
 RUN chmod 755 /*.sh
 
