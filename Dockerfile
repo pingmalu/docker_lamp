@@ -116,16 +116,16 @@ ADD pip.conf /root/.pip/pip.conf
 
 #scrapy
 RUN apt-get install -y libffi-dev python-dev python-lxml
-RUN pip install w3lib
-RUN pip install cssselect
-RUN pip install cryptography
-RUN pip install Twisted
-RUN pip install scrapy
+RUN pip install w3lib && \
+    pip install cssselect && \
+    pip install cryptography && \
+    pip install Twisted && \
+    pip install scrapy
 
 #sitemap_online
-RUN pip install beautifulsoup4
-RUN pip install redis
-RUN pip install pymongo
+RUN pip install beautifulsoup4 && \
+    pip install redis && \
+    pip install pymongo
 #sitemap_online mysql-python install
 RUN apt-get install libmysqlclient-dev
 RUN pip install mysql-python
