@@ -13,6 +13,9 @@ RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSep
 RUN apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Install Node.js
 RUN apt-get install -y nodejs npm
 RUN npm config set registry http://registry.npm.taobao.org
@@ -168,10 +171,7 @@ RUN cd /home/mongo-1.6.14/ ; make install
 	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
 RUN	apt-get clean && \
 	apt-get autoclean && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-
-	# 安装Composer,此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
-	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 安装百度网盘同步工具syncy
 ADD syncy/syncy.conf /etc/syncy.conf
