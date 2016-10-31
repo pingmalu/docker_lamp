@@ -53,11 +53,13 @@ echo 'extension=mongo.so' >> /etc/php5/apache2/php.ini
 mkdir -p /app/www/webssh
 mkdir -p /app/www/static
 mkdir -p /app/www/auth
+mkdir -p /app/www/do
 # 存在不覆盖并不提示
 awk 'BEGIN { cmd="cp -ri /home/webssh/.htaccess /app/www/webssh/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/static.htaccess /app/www/static/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
+awk 'BEGIN { cmd="cp -ri /home/webssh/do/index.php /app/www/do/index.php"; print "n" |cmd; }'
 
 # syncy
 awk 'BEGIN { cmd="cp -ri /etc/syncy.conf /app/syncy.conf"; print "n" |cmd; }'
