@@ -56,7 +56,7 @@ mkdir -p /app/www/auth
 mkdir -p /app/www/do
 # 存在不覆盖并不提示
 awk 'BEGIN { cmd="cp -ri /home/webssh/.htaccess /app/www/webssh/.htaccess"; print "n" |cmd; }'
-awk 'BEGIN { cmd="cp -ri /home/webssh/static.htaccess /app/www/static/.htaccess"; print "n" |cmd; }'
+awk 'BEGIN { cmd="cp -ri /home/webssh/static/.htaccess /app/www/static/.htaccess"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/do/index.php /app/www/do/index.php"; print "n" |cmd; }'
@@ -68,9 +68,10 @@ mkdir -p /app/syncy
 # supervisor
 sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf/' /etc/supervisor/supervisord.conf
 mkdir -p /app/supervisor_conf
+#open apache2
 ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
 
-# apache2
+# apache2 KeepAlive off
 sed -i 's/^KeepAlive On.*/KeepAlive off/' /etc/apache2/apache2.conf
 
 exec /usr/bin/supervisord -n
