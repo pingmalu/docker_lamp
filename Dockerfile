@@ -71,39 +71,18 @@ RUN apt-get install -y python-pip python-pyside xvfb ipython
 #OCR文字识别(中文包)
 RUN apt-get install -y tesseract-ocr tesseract-ocr-chi-sim python-opencv python-imaging
 
-#mongodb redis
-RUN apt-get install -y mongodb redis-server
-ADD start-redis.sh /start-redis.sh
-ADD start-mongodb.sh /start-mongodb.sh
-#ADD supervisord-redis.conf /etc/supervisor/conf.d/supervisord-redis.conf
-ADD supervisord-redis.conf /supervisord-redis.conf
-#ADD supervisord-mongodb.conf /etc/supervisor/conf.d/supervisord-mongodb.conf
-ADD supervisord-mongodb.conf /supervisord-mongodb.conf
-RUN mkdir -p /app/data
-RUN mkdir -p /app/mongodb/db
+#mongodb redis mysql
+RUN apt-get install -y mongodb redis-server mysql-server php5-mysql && \
+    mkdir -p /app/data && \
+    mkdir -p /app/mongodb/db && \
+    mkdir -p /app/mysql
 
-RUN apt-get install -y mysql-server php5-mysql
-ADD start-mysqld.sh /start-mysqld.sh
-ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
-#ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
-ADD supervisord-mysqld.conf /supervisord-mysqld.conf
-RUN mkdir -p /app/mysql
 
-# Add files.
-ADD home/.profile /root/.profile
-ADD home/.bashrc /root/.bashrc
-ADD home/.gitconfig /root/.gitconfig
-ADD home/.scripts /root/.scripts
-ADD home/.vimrc /root/.vimrc
+#Add root files
+ADD root/ /root
+ADD superstart/ /
 
-ADD start-apache2.sh /start-apache2.sh
-#ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-apache2.conf /supervisord-apache2.conf
-#ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
-ADD supervisord-sshd.conf /supervisord-sshd.conf
-
-ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
 
 # config to enable .htaccess
@@ -149,19 +128,8 @@ ADD apache2/auth/index.php /home/webssh/auth/
 ADD apache2/do/index.php /home/webssh/do/
 
 ADD apache2/server.conf /opt/gateone/
-ADD start-gateone.sh /start-gateone.sh
-ADD startgateone.sh /startgateone.sh
-ADD stopgateone.sh /stopgateone.sh
-#ADD supervisord-gateone.conf /etc/supervisor/conf.d/supervisord-gateone.conf
-ADD supervisord-gateone.conf /supervisord-gateone.conf
 
 ADD apache2/usr /home/webssh/usr
-
-ENV HOME /root
-ENV REDIS_DIR /app/data
-WORKDIR /root
-
-VOLUME ["/root","/app"]
 
 #mongodb 1.6.14 ; 默认apt-get install php5-mongo 安装的是1.4.5
 RUN apt-get install -y php5-dev
@@ -170,11 +138,6 @@ RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
     cd /home/mongo-1.6.14/ ; phpize && \
     cd /home/mongo-1.6.14/ ; ./configure && \
     cd /home/mongo-1.6.14/ ; make install
-
-	# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
-RUN	apt-get clean && \
-	apt-get autoclean && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 安装百度网盘同步工具syncy
 ADD syncy/syncy.conf /etc/syncy.conf
@@ -185,6 +148,13 @@ RUN chmod 777 /usr/local/bin/syncy.py && \
 
 RUN chmod 755 /*.sh
 
+ADD apache2/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+
+# 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
+RUN apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 #COPY home/ /root
 
 #Enviornment variables to configure php
@@ -192,6 +162,13 @@ ENV PHP_UPLOAD_MAX_FILESIZE 100M
 ENV PHP_POST_MAX_SIZE 100M
 
 ENV AUTHORIZED_KEYS **None**
+ENV HOME /root
+ENV REDIS_DIR /app/data
+
+WORKDIR /root
+
+VOLUME ["/root","/app"]
 
 EXPOSE 22 80 6379 443 21 23 8080 8888 8000 27017 3306
+
 CMD ["/run.sh"]
