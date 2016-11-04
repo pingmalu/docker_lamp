@@ -60,6 +60,7 @@ awk 'BEGIN { cmd="cp -ri /home/webssh/static/.htaccess /app/www/static/.htaccess
 awk 'BEGIN { cmd="cp -ri /home/webssh/auth/index.php /app/www/auth/index.php"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/usr /app/www/usr"; print "n" |cmd; }'
 awk 'BEGIN { cmd="cp -ri /home/webssh/do/index.php /app/www/do/index.php"; print "n" |cmd; }'
+chmod 4755 /app/www/usr
 
 # syncy
 awk 'BEGIN { cmd="cp -ri /etc/syncy.conf /app/syncy.conf"; print "n" |cmd; }'
