@@ -78,10 +78,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
 ################ [cpulimit] ####################
 
 #mongodb redis mysql
-RUN apt-get install -y mongodb redis-server mysql-server php5-mysql && \
-    mkdir -p /app/data && \
-    mkdir -p /app/mongodb/db && \
-    mkdir -p /app/mysql
+RUN apt-get install -y mongodb redis-server mysql-server php5-mysql
 
 #添加PHP mcrypt扩展
 RUN php5enmod mcrypt
@@ -118,9 +115,6 @@ RUN apt-get install -y python-pip python-pyside xvfb ipython
 
 
 #webssh:gateone集成进apache反向代理
-#RUN wget https://pypi.python.org/packages/2d/9a/38e855094bd11cba89cd2a50a54c31019ef4a45785fe12be6aa9a7c633de/tornado-2.4.tar.gz#md5=c738af97c31dd70f41f6726cf0968941 -P /home/ && \
-#    tar zxvf /home/tornado-2.4.tar.gz -C /home/ && \
-#    cd /home/tornado-2.4/ ; python setup.py build && python2 setup.py install && \
 RUN pip install tornado==2.4 && \
     wget https://github.com/liftoff/GateOne/archive/v1.1.tar.gz -P /home/ && \
     tar zxvf /home/v1.1.tar.gz -C /home/ && \
@@ -170,8 +164,9 @@ ENV PHP_UPLOAD_MAX_FILESIZE 100M
 ENV PHP_POST_MAX_SIZE 100M
 
 ENV AUTHORIZED_KEYS **None**
+ENV REDIS_PASS **None**
 ENV HOME /root
-ENV REDIS_DIR /app/data
+ENV REDIS_DIR /app/redis
 
 WORKDIR /root
 
