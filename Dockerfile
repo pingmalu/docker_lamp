@@ -6,6 +6,8 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD sources.list /etc/apt/sources.list
+#Add root files
+ADD root/ /root
 
 # Install packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen && \
@@ -14,10 +16,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-#添加PHP mcrypt扩展
-RUN php5enmod mcrypt
-
 
 ################ [Install Composer] ################
 #此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
@@ -85,6 +83,9 @@ RUN apt-get install -y mongodb redis-server mysql-server php5-mysql && \
     mkdir -p /app/mongodb/db && \
     mkdir -p /app/mysql
 
+#添加PHP mcrypt扩展
+RUN php5enmod mcrypt
+
 # config to enable .htaccess
 RUN a2enmod rewrite
 
@@ -117,9 +118,10 @@ RUN apt-get install -y python-pip python-pyside xvfb ipython
 
 
 #webssh:gateone集成进apache反向代理
-RUN wget https://pypi.python.org/packages/2d/9a/38e855094bd11cba89cd2a50a54c31019ef4a45785fe12be6aa9a7c633de/tornado-2.4.tar.gz#md5=c738af97c31dd70f41f6726cf0968941 -P /home/ && \
-    tar zxvf /home/tornado-2.4.tar.gz -C /home/ && \
-    cd /home/tornado-2.4/ ; python setup.py build && python2 setup.py install && \
+#RUN wget https://pypi.python.org/packages/2d/9a/38e855094bd11cba89cd2a50a54c31019ef4a45785fe12be6aa9a7c633de/tornado-2.4.tar.gz#md5=c738af97c31dd70f41f6726cf0968941 -P /home/ && \
+#    tar zxvf /home/tornado-2.4.tar.gz -C /home/ && \
+#    cd /home/tornado-2.4/ ; python setup.py build && python2 setup.py install && \
+RUN pip install tornado==2.4 && \
     wget https://github.com/liftoff/GateOne/archive/v1.1.tar.gz -P /home/ && \
     tar zxvf /home/v1.1.tar.gz -C /home/ && \
     cd /home/GateOne-1.1/ ; python setup.py install
@@ -142,18 +144,15 @@ RUN apt-get install -y php5-dev && \
 ################ php mongodb 1.6.14 ################
 
 ################ 百度网盘同步工具syncy ################
-ADD syncy/syncy.conf /etc/syncy.conf
-ADD syncy/syncy.py /usr/local/bin/syncy.py
-ADD syncy/syncy.sh /etc/init.d/syncy
-RUN chmod 777 /usr/local/bin/syncy.py && \
-    chmod 777 /etc/init.d/syncy
+#ADD syncy/syncy.conf /etc/syncy.conf
+#ADD syncy/syncy.py /usr/local/bin/syncy.py
+#ADD syncy/syncy.sh /etc/init.d/syncy
+#RUN chmod 777 /usr/local/bin/syncy.py && \
+#    chmod 777 /etc/init.d/syncy
 ################ 百度网盘同步工具syncy ################
 
 #mysql config
 ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
-
-#Add root files
-ADD root/ /root
 
 #Add to /
 ADD superstart/ /
