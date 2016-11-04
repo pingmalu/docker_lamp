@@ -94,25 +94,27 @@ RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 RUN apt-get install -y python-pip python-pyside xvfb ipython
 ################ [Install PIP] ################
 
+################ [爬虫相关] ################
+##OCR文字识别(中文包)
+#RUN apt-get install -y tesseract-ocr tesseract-ocr-chi-sim python-opencv python-imaging && \
+#
+##scrapy
+#    apt-get install -y libffi-dev python-dev python-lxml && \
+#    pip install w3lib && \
+#    pip install cssselect && \
+#    pip install cryptography && \
+#    pip install Twisted && \
+#    pip install scrapy && \
+#
+##sitemap_online
+#    pip install beautifulsoup4 && \
+#    pip install redis && \
+#    pip install pymongo && \
+##sitemap_online mysql-python install
+#    apt-get install libmysqlclient-dev && \
+#    pip install mysql-python
+################ [爬虫相关] ################
 
-#OCR文字识别(中文包)
-RUN apt-get install -y tesseract-ocr tesseract-ocr-chi-sim python-opencv python-imaging && \
-
-#scrapy
-    apt-get install -y libffi-dev python-dev python-lxml && \
-    pip install w3lib && \
-    pip install cssselect && \
-    pip install cryptography && \
-    pip install Twisted && \
-    pip install scrapy && \
-
-#sitemap_online
-    pip install beautifulsoup4 && \
-    pip install redis && \
-    pip install pymongo && \
-#sitemap_online mysql-python install
-    apt-get install libmysqlclient-dev && \
-    pip install mysql-python
 
 #webssh:gateone集成进apache反向代理
 RUN wget https://pypi.python.org/packages/2d/9a/38e855094bd11cba89cd2a50a54c31019ef4a45785fe12be6aa9a7c633de/tornado-2.4.tar.gz#md5=c738af97c31dd70f41f6726cf0968941 -P /home/ && \
