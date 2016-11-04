@@ -128,13 +128,13 @@ ADD apache2/webssh/ /home/webssh/
 ADD apache2/server.conf /opt/gateone/
 
 ################ php mongodb 1.6.14 ################
-#默认apt-get install php5-mongo 安装的是1.4.5
-RUN apt-get install -y php5-dev && \
-    wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
-    tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
-    cd /home/mongo-1.6.14/ ; phpize && \
-    cd /home/mongo-1.6.14/ ; ./configure && \
-    cd /home/mongo-1.6.14/ ; make install
+##默认apt-get install php5-mongo 安装的是1.4.5
+#RUN apt-get install -y php5-dev && \
+#    wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
+#    tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
+#    cd /home/mongo-1.6.14/ ; phpize && \
+#    cd /home/mongo-1.6.14/ ; ./configure && \
+#    cd /home/mongo-1.6.14/ ; make install
 ################ php mongodb 1.6.14 ################
 
 ################ 百度网盘同步工具syncy ################
