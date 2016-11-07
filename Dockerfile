@@ -18,6 +18,13 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+################ [Install logstash] ################
+RUN wget https://download.elastic.co/logstash/logstash/packages/debian/logstash_2.3.4-1_all.deb && \
+    dpkg -i logstash_2.3.4-1_all.deb
+ADD logstash/logstash.conf /etc/logstash/conf.d/
+################ [Install logstash] ################
+
+
 ################ [Install Composer] ################
 #此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
