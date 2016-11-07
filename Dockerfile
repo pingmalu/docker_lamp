@@ -22,6 +22,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
 RUN wget https://download.elastic.co/logstash/logstash/packages/debian/logstash_2.3.4-1_all.deb && \
     dpkg -i logstash_2.3.4-1_all.deb
 ADD logstash/logstash.conf /etc/logstash/conf.d/
+RUN apt-get install -y openjdk-7-jre-headless
 ################ [Install logstash] ################
 
 
