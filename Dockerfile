@@ -14,7 +14,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
     sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-    apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
+    apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
+    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ################ [Install Composer] ################
@@ -123,6 +124,7 @@ RUN pip install tornado==2.4 && \
 ADD apache2/apache_default /etc/apache2/sites-available/000-default.conf
 ADD apache2/proxy.conf /etc/apache2/conf-enabled/
 ADD apache2/proxy.load /etc/apache2/mods-enabled/
+#apache内存优化
 ADD apache2/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 ADD apache2/webssh/ /home/webssh/
 ADD apache2/server.conf /opt/gateone/
