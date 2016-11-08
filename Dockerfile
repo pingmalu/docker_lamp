@@ -8,6 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ADD sources.list /etc/apt/sources.list
 #Add root files
 ADD root/ /root
+ADD home/ /home
 
 # Install packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen && \
@@ -164,7 +165,10 @@ ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
 #Add to /
 ADD superstart/ /
 ADD run.sh /run.sh
-
+RUN chmod 777 /home/mybash/*.sh && \
+    #Add n1 显示网速脚本
+    echo -e '#!/bin/bash\nwatch -d -n 2 /home/mybash/net.sh eth0' >/usr/local/bin/n1 && \
+    chmod 777 /usr/local/bin/*
 RUN chmod 755 /*.sh
 
 # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
