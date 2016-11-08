@@ -167,7 +167,7 @@ ADD superstart/ /
 ADD run.sh /run.sh
 RUN chmod 777 /home/mybash/*.sh && \
     #Add n1 显示网速脚本
-    echo -e '#!/bin/bash\nwatch -d -n 2 /home/mybash/net.sh eth0' >/usr/local/bin/n1 && \
+    echo '#!/bin/bash\nwatch -d -n 2 /home/mybash/net.sh eth0' >/usr/local/bin/n1 && \
     chmod 777 /usr/local/bin/*
 RUN chmod 755 /*.sh
 
