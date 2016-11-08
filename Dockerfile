@@ -6,10 +6,6 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ADD sources.list /etc/apt/sources.list
-RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
-    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list
 #Add root files
 ADD root/ /root
 
@@ -22,6 +18,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
+    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
+    apt-get update
 ################ [Install logstash] ################
 RUN apt-get install -y openjdk-7-jre-headless logstash
 ADD logstash/logstash.conf /etc/logstash/conf.d/
