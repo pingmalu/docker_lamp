@@ -164,6 +164,11 @@ RUN ln -s /etc/apache2/mods-available/remoteip.load /etc/apache2/mods-enabled/re
 #    chmod 777 /etc/init.d/syncy
 ################ 百度网盘同步工具syncy ################
 
+################ [Install elasticsearch ] ################
+RUN apt-get install -y elasticsearch && \
+    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+################ [Install elasticsearch ] ################
+
 #mysql config
 ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
 
@@ -194,6 +199,6 @@ WORKDIR /root
 
 VOLUME ["/root","/app"]
 
-EXPOSE 22 80 6379 443 21 23 8080 8888 8000 27017 3306
+EXPOSE 22 80 6379 443 21 23 8080 8888 8000 27017 3306 9200 9300
 
 CMD ["/run.sh"]
