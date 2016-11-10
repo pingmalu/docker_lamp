@@ -140,6 +140,11 @@ ADD apache2/proxy.load /etc/apache2/mods-enabled/
 ADD apache2/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 ADD apache2/webssh/ /home/webssh/
 ADD apache2/server.conf /opt/gateone/
+#apache开启反向代理真实IP获取
+RUN ln -s /etc/apache2/mods-available/remoteip.load /etc/apache2/mods-enabled/remoteip.load && \
+    sed -i '/^LogFormat "%v/i\RemoteIPHeader X-Forwarded-For' /etc/apache2/apache2.conf && \
+    sed -i '/^LogFormat "%v/i\RemoteIPInternalProxy 10.0.0.0/8' /etc/apache2/apache2.conf && \
+    sed -i 's/^LogFormat "%h/LogFormat "%a/g' /etc/apache2/apache2.conf
 
 ################ php mongodb 1.6.14 ################
 ##默认apt-get install php5-mongo 安装的是1.4.5
