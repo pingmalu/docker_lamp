@@ -80,4 +80,7 @@ ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
 # apache2 KeepAlive off
 sed -i 's/^KeepAlive On.*/KeepAlive off/' /etc/apache2/apache2.conf
 
+chmod 777 /app/mybash/firstrun.sh
+/app/mybash/firstrun.sh
+
 exec /usr/bin/supervisord -n
