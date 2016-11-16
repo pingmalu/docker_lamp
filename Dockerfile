@@ -121,7 +121,8 @@ RUN apt-get install -y python-pip python-pyside xvfb ipython
 RUN pip install beautifulsoup4 && \
     pip install redis && \
     pip install pymongo && \
-    pip install elasticsearch
+    pip install elasticsearch && \
+    apt-get install -y python-lxml
 ##sitemap_online mysql-python install
 #    apt-get install libmysqlclient-dev && \
 #    pip install mysql-python
