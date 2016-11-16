@@ -118,7 +118,7 @@ RUN apt-get install -y python-pip python-pyside xvfb ipython
 #    pip install scrapy && \
 #
 ##sitemap_online
-RUM pip install beautifulsoup4 && \
+RUN pip install beautifulsoup4 && \
     pip install redis && \
     pip install pymongo && \
     pip install elasticsearch
