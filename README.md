@@ -9,17 +9,14 @@ Elasticsearch:
 
 	vim /app/mybash/firstrun.sh
 
-{% highlight shell %}
-#!/bin/bash
-#MYENV=E1
-if [ "${MYENV}" != "**None**" ]; then
-  basepath=$(cd `dirname $0`; pwd)
-  cd $basepath/$MYENV
-  pwd
-  ./run.sh
-fi
-{% endhighlight %}
-
+	#!/bin/bash
+	#MYENV=E1
+	if [ "${MYENV}" != "**None**" ]; then
+	  basepath=$(cd `dirname $0`; pwd)
+	  cd $basepath/$MYENV
+	  pwd
+	  ./run.sh
+	fi
 
 	mkdir $MYENV
 	touch $MYENV/run.sh
