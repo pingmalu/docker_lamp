@@ -19,14 +19,18 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
-    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
-    apt-get update
+################ [elasticsearch packages] ################
+#RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
+#    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
+#    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
+#    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
+#    apt-get update
+################ [elasticsearch packages] ################
+
+
 ################ [Install logstash] ################
-RUN apt-get install -y openjdk-7-jre-headless logstash
-ADD logstash/logstash.conf /etc/logstash/conf.d/
+#RUN apt-get install -y openjdk-7-jre-headless logstash
+#ADD logstash/logstash.conf /etc/logstash/conf.d/
 ################ [Install logstash] ################
 
 
@@ -102,7 +106,7 @@ RUN a2enmod rewrite
 RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 
 ################ [Install PIP] ################
-RUN apt-get install -y python-pip python-pyside xvfb ipython
+RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython
 ################ [Install PIP] ################
 
 ################ [爬虫相关] ################
@@ -128,6 +132,10 @@ RUN pip install beautifulsoup4 && \
 #    pip install mysql-python
 ################ [爬虫相关] ################
 
+################ [Install scapy] ################
+RUN pip3 install scapy-python3
+################ [Install scapy] ################
+
 
 #webssh:gateone集成进apache反向代理
 RUN pip install tornado==2.4 && \
@@ -150,12 +158,12 @@ RUN ln -s /etc/apache2/mods-available/remoteip.load /etc/apache2/mods-enabled/re
 
 ################ php mongodb 1.6.14 ################
 ##默认apt-get install php5-mongo 安装的是1.4.5
-#RUN apt-get install -y php5-dev && \
-#    wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
-#    tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
-#    cd /home/mongo-1.6.14/ ; phpize && \
-#    cd /home/mongo-1.6.14/ ; ./configure && \
-#    cd /home/mongo-1.6.14/ ; make install
+RUN apt-get install -y php5-dev && \
+    wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
+    tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
+    cd /home/mongo-1.6.14/ ; phpize && \
+    cd /home/mongo-1.6.14/ ; ./configure && \
+    cd /home/mongo-1.6.14/ ; make install
 ################ php mongodb 1.6.14 ################
 
 ################ 百度网盘同步工具syncy ################
@@ -167,8 +175,8 @@ RUN ln -s /etc/apache2/mods-available/remoteip.load /etc/apache2/mods-enabled/re
 ################ 百度网盘同步工具syncy ################
 
 ################ [Install elasticsearch ] ################
-RUN apt-get install -y elasticsearch && \
-    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+#RUN apt-get install -y elasticsearch && \
+#    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
 ################ [Install elasticsearch ] ################
 
 #mysql config
