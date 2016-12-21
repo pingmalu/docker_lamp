@@ -133,7 +133,7 @@ RUN pip install beautifulsoup4 && \
 ################ [爬虫相关] ################
 
 ################ [Install scapy] ################
-RUN pip3 install scapy-python3
+#RUN pip3 install scapy-python3
 ################ [Install scapy] ################
 
 

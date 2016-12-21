@@ -74,8 +74,11 @@ mkdir -p /app/syncy
 # supervisor
 sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf/' /etc/supervisor/supervisord.conf
 mkdir -p /app/supervisor_conf
-#open apache2
-ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
+
+if [ ! -f /app/mybash/firstrun.sh ] ; then
+   #open apache2
+   ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
+fi
 
 # apache2 KeepAlive off
 sed -i 's/^KeepAlive On.*/KeepAlive off/' /etc/apache2/apache2.conf
