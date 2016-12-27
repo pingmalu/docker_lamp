@@ -20,18 +20,24 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ################ [elasticsearch packages] ################
-#RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
-#    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
-#    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
-#    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
-#    apt-get update
+RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
+    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
+    apt-get update
 ################ [elasticsearch packages] ################
 
 
 ################ [Install logstash] ################
-#RUN apt-get install -y openjdk-7-jre-headless logstash
-#ADD logstash/logstash.conf /etc/logstash/conf.d/
+RUN apt-get install -y openjdk-7-jre-headless logstash
+ADD logstash/logstash.conf /etc/logstash/conf.d/
 ################ [Install logstash] ################
+
+
+################ [Install elasticsearch ] ################
+RUN apt-get install -y elasticsearch && \
+    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+################ [Install elasticsearch ] ################
 
 
 ################ [Install Composer] ################
@@ -173,11 +179,6 @@ RUN apt-get install -y php5-dev && \
 #RUN chmod 777 /usr/local/bin/syncy.py && \
 #    chmod 777 /etc/init.d/syncy
 ################ 百度网盘同步工具syncy ################
-
-################ [Install elasticsearch ] ################
-#RUN apt-get install -y elasticsearch && \
-#    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
-################ [Install elasticsearch ] ################
 
 #mysql config
 ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
