@@ -15,8 +15,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
     sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-    apt-get install -y build-essential g++ curl libssl-dev git vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
+    apt-get install -y build-essential g++ curl libssl-dev git subversion vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
     apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl && \
+    #端口转发工具
+    apt-get install -y rinetd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ################ [elasticsearch packages] ################
@@ -42,7 +44,7 @@ RUN apt-get install -y elasticsearch && \
 
 ################ [Install Composer] ################
 #此物是PHP用来管理依赖关系的工具,laravel symfony等时髦的框架会依赖它.
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ################ [Install Composer] ################
 
 
