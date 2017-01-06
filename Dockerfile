@@ -37,8 +37,8 @@ ADD logstash/logstash.conf /etc/logstash/conf.d/
 
 
 ################ [Install elasticsearch ] ################
-RUN apt-get install -y elasticsearch && \
-    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+#RUN apt-get install -y elasticsearch && \
+#    /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
 ################ [Install elasticsearch ] ################
 
 
