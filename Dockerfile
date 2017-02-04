@@ -114,8 +114,10 @@ RUN a2enmod rewrite
 RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 
 ################ [Install PIP] ################
-RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython
+RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev
 ################ [Install PIP] ################
+
+
 
 ################ [爬虫相关] ################
 ##OCR文字识别(中文包)
@@ -131,13 +133,11 @@ RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython
 #
 ##sitemap_online
 RUN pip install beautifulsoup4 && \
+    pip install mysql-python && \
     pip install redis && \
     pip install pymongo && \
     pip install elasticsearch && \
     apt-get install -y python-lxml
-##sitemap_online mysql-python install
-#    apt-get install libmysqlclient-dev && \
-#    pip install mysql-python
 ################ [爬虫相关] ################
 
 ################ [Install scapy] ################
