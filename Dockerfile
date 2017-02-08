@@ -135,8 +135,8 @@ RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-
 RUN pip install beautifulsoup4 && \
     pip install mysql-python && \
     pip install redis && \
-    pip install pymongo && \
-    pip install elasticsearch && \
+    #pip install pymongo && \
+    #pip install elasticsearch && \
     apt-get install -y python-lxml
 ################ [爬虫相关] ################
 
