@@ -5,7 +5,6 @@ MAINTAINER MaLu <malu@malu.me>
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ADD sources.list /etc/apt/sources.list
 #Add root files
 ADD root/ /root
 ADD home/ /home
@@ -195,10 +194,15 @@ RUN chmod 777 /home/mybash/*.sh && \
     chmod 777 /usr/local/bin/*
 RUN chmod 755 /*.sh
 
+# 添加国内源
+ADD sources.list /etc/apt/sources.list
+RUN mv /root/.pip/pip.conf.bak /root/.pip/pip.conf
+RUN apt-get update
+
 # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
-RUN apt-get clean && \
-    apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get clean && \
+#    apt-get autoclean && \
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #Enviornment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 100M
