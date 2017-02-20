@@ -85,6 +85,7 @@ else
     if [ ! -f '/app/mybash/'${MYENV}'/run.sh' ] ; then
         cp /home/mybash/run.sh '/app/mybash/'${MYENV}'/run.sh'
     fi
+    awk 'BEGIN { cmd="cp -ri /home/mybash/root /app/mybash/'${MYENV}'/"; print "n" |cmd; }'
 fi
 
 # apache2 KeepAlive off
@@ -100,5 +101,6 @@ if [ -f /app/mybash/firstrun.sh ] ; then
     chmod 777 /app/mybash/firstrun.sh
     /app/mybash/firstrun.sh
 fi
+
 
 exec /usr/bin/supervisord -n
