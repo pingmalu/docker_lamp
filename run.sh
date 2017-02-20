@@ -75,13 +75,26 @@ mkdir -p /app/syncy
 sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf/' /etc/supervisor/supervisord.conf
 mkdir -p /app/supervisor_conf
 
-if [ ! -f /app/mybash/firstrun.sh ] ; then
+mkdir -p /app/mybash/
+
+if [ "${MYENV}" == "**None**" ] || [ "${MYENV}" == "" ]; then
    #open apache2
    ln -s -f /supervisord-apache2.conf /app/supervisor_conf/supervisord-apache2.conf
+else
+    mkdir -p '/app/mybash/'${MYENV}
+    if [ ! -f '/app/mybash/'${MYENV}'/run.sh' ] ; then
+        cp /home/mybash/run.sh '/app/mybash/'${MYENV}'/run.sh'
+    fi
 fi
 
 # apache2 KeepAlive off
 sed -i 's/^KeepAlive On.*/KeepAlive off/' /etc/apache2/apache2.conf
+
+
+
+if [ ! -f /app/mybash/firstrun.sh ] ; then
+    cp /home/mybash/firstrun.sh /app/mybash/
+fi
 
 if [ -f /app/mybash/firstrun.sh ] ; then
     chmod 777 /app/mybash/firstrun.sh
