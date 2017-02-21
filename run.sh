@@ -19,6 +19,8 @@ if [ "${AUTHORIZED_KEYS}" != "**None**" ]; then
     done
 fi
 
+sed -i 's/.*StrictHostKeyChecking.*/    StrictHostKeyChecking no/' /etc/ssh/ssh_config
+
 if [ ! -f /.root_pw_set ]; then
 	/set_root_pw.sh
 fi

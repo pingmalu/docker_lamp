@@ -77,7 +77,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 ################ [hashcat v2.00] ################
 #7z安装
-#RUN apt-get install -y p7zip p7zip-full p7zip-rar
+RUN apt-get install -y p7zip p7zip-full p7zip-rar
 #获取系统位数: uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'
 #RUN wget https://hashcat.net/files_legacy/hashcat-2.00.7z -P /home && \
 #    cd /home ; 7z x hashcat-2.00.7z && \
