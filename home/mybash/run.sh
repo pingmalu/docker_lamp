@@ -1,9 +1,10 @@
 #!/bin/bash
 #MYENV=malu
 if [ "${MYENV}" != "**None**" ] && [ "${MYENV}" != "" ]; then
+   sed -i 's/^  export PS1="\\[\\033[40m\\]\\[\\033[34m\\].*git_ps1.*/  export PS1="\\[\\033[40m\\]\\[\\033[34m\\][ \\u@'${MYENV}':\\[\\033[36m\\]\\w\\$(__git_ps1 \\" \\[\\033[35m\\]{\\[\\033[32m\\]%s\\[\\033[35m\\]}\\")\\[\\033[34m\\] ]$\\[\\033[0m\\] "/' /root/.bashrc
    cd /app/mybash/${MYENV}
    ln -s -f -n /app/mybash/${MYENV} /root/myenv
-   sed -i 's/.*AllowOverride FileInfo.*/                AllowOverride All/' /etc/apache2/sites-enabled/000-default.conf
+   #sed -i 's/.*AllowOverride FileInfo.*/                AllowOverride All/' /etc/apache2/sites-enabled/000-default.conf
    sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf \/app\/mybash\/'${MYENV}'\/*.conf/' /etc/supervisor/supervisord.conf
    #sed -i 's/^files = .*/files = \/app\/mybash\/'${MYENV}'\/*.conf/' /etc/supervisor/supervisord.conf
    #crontab < root
