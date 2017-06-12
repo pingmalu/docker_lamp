@@ -15,7 +15,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     apt-get install -y build-essential g++ curl libssl-dev git subversion vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
-    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl && \
+    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl nginx && \
     #端口转发工具
     apt-get install -y rinetd && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
