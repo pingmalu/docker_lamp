@@ -9,6 +9,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ADD root/ /root
 ADD home/ /home
 
+RUN cat /home/GPG-KEY-elasticsearch | apt-key add - && \
+    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
+    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list
+
 # Install packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen && \
     mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
@@ -24,18 +29,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     apt-get install -y mongodb redis-server mysql-server && \
     ################ [Install PIP] ################
     apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev python-lxml && \
-    # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
-    apt-get clean && \
-    apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
 
 ################ [elasticsearch packages] ################
-RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
-    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
-    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
-    apt-get update && \
+#RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
+#    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
+#    echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
+#    echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
+#    apt-get update && \
 ################ [elasticsearch packages] ################
 
 ################ [Install logstash] ################
@@ -44,6 +45,7 @@ RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
     apt-get clean && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    # */
 ADD logstash/logstash.conf /etc/logstash/conf.d/
 ################ [Install logstash] ################
 
@@ -204,15 +206,17 @@ ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
 ADD superstart/ /
 ADD run.sh /run.sh
 RUN chmod 777 /home/mybash/*.sh && \
+    #*/
     #Add n1 显示网速脚本
     echo '#!/bin/bash\nwatch -d -n 2 /home/mybash/net.sh eth0' >/usr/local/bin/n1 && \
-    chmod 777 /usr/local/bin/*
-RUN chmod 755 /*.sh
+    chmod 777 /usr/local/bin/* && \
+    chmod 755 /*.sh
+    #*/
 
 # 添加国内源
 ADD sources.list /etc/apt/sources.list
 RUN mv /root/.pip/pip.conf.bak /root/.pip/pip.conf
-RUN apt-get update
+#RUN apt-get update
 
 # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
 #RUN apt-get clean && \
