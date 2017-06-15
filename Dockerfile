@@ -1,6 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER MaLu <malu@malu.me> 
 
+WORKDIR /root
+
 #时区设置
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -8,6 +10,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #Add root files
 ADD root/ /root
 ADD home/ /home
+#Add to /
+ADD superstart/ /
+ADD run.sh /run.sh
 
 RUN cat /home/GPG-KEY-elasticsearch | apt-key add - && \
     echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
@@ -202,9 +207,7 @@ RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
 #mysql config
 ADD mysql/my.cnf /etc/mysql/conf.d/my.cnf
 
-#Add to /
-ADD superstart/ /
-ADD run.sh /run.sh
+
 RUN chmod 777 /home/mybash/*.sh && \
     #*/
     #Add n1 显示网速脚本
@@ -234,7 +237,6 @@ ENV MYSQL_PASS malupasswd
 ENV HOME /root
 ENV REDIS_DIR /app/redis
 
-WORKDIR /root
 
 VOLUME ["/root","/app"]
 
