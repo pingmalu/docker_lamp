@@ -15,9 +15,19 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     apt-get install -y build-essential g++ curl libssl-dev git subversion vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
-    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl nginx && \
+    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl php5-dev php5-mysql nginx && \
     #端口转发工具
     apt-get install -y rinetd && \
+    #7z安装
+    apt-get install -y p7zip p7zip-full && \
+    #mongodb redis mysql
+    apt-get install -y mongodb redis-server mysql-server && \
+    ################ [Install PIP] ################
+    apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev python-lxml && \
+    # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ################ [elasticsearch packages] ################
@@ -25,12 +35,15 @@ RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
     echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' >> /etc/apt/sources.list && \
     echo 'deb http://packages.elasticsearch.org/logstash/2.4/debian stable main' >> /etc/apt/sources.list && \
     echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list && \
-    apt-get update
+    apt-get update && \
 ################ [elasticsearch packages] ################
 
-
 ################ [Install logstash] ################
-RUN apt-get install -y openjdk-7-jre-headless logstash
+    apt-get install -y openjdk-7-jre-headless logstash && \
+    # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ADD logstash/logstash.conf /etc/logstash/conf.d/
 ################ [Install logstash] ################
 
@@ -77,7 +90,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 ################ [hashcat v2.00] ################
 #7z安装
-RUN apt-get install -y p7zip p7zip-full
+#RUN apt-get install -y p7zip p7zip-full
 #    p7zip-rar
 #获取系统位数: uname -m|awk '{if($1~/^x86_64/){print 64}else{print 32}}'
 #RUN wget https://hashcat.net/files_legacy/hashcat-2.00.7z -P /home && \
@@ -103,7 +116,7 @@ RUN apt-get install -y p7zip p7zip-full
 ################ [cpulimit] ####################
 
 #mongodb redis mysql
-RUN apt-get install -y mongodb redis-server mysql-server php5-mysql
+#RUN apt-get install -y mongodb redis-server mysql-server php5-mysql
 
 #添加PHP mcrypt扩展
 RUN php5enmod mcrypt
@@ -114,7 +127,7 @@ RUN a2enmod rewrite
 RUN mkdir -p /app/www && rm -fr /var/www/html && ln -s /app/www /var/www/html
 
 ################ [Install PIP] ################
-RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev
+#RUN apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev
 ################ [Install PIP] ################
 
 
@@ -138,8 +151,8 @@ RUN pip install beautifulsoup4 && \
     pip install redis && \
     pip install pymongo && \
     pip install elasticsearch && \
-    pip install socketio-client && \
-    apt-get install -y python-lxml
+    pip install socketio-client
+    #apt-get install -y python-lxml
 ################ [爬虫相关] ################
 
 ################ [Install scapy] ################
@@ -168,8 +181,8 @@ RUN ln -s /etc/apache2/mods-available/remoteip.load /etc/apache2/mods-enabled/re
 
 ################ php mongodb 1.6.14 ################
 ##默认apt-get install php5-mongo 安装的是1.4.5
-RUN apt-get install -y php5-dev && \
-    wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
+#RUN apt-get install -y php5-dev && \
+RUN wget http://pecl.php.net/get/mongo-1.6.14.tgz -P /home/ && \
     tar -zxvf /home/mongo-1.6.14.tgz -C /home/ && \
     cd /home/mongo-1.6.14/ ; phpize && \
     cd /home/mongo-1.6.14/ ; ./configure && \
