@@ -42,6 +42,8 @@ export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=1;40:bd=34;40:cd=34;40:su=0;40:sg=0
 
 # Git
 source $HOME/.scripts/git-completion.sh
+# git diff LuanMa bug
+export LESSCHARSET=utf-8
 
 # Z
 source $HOME/.scripts/z.sh
