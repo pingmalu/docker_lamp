@@ -158,7 +158,7 @@ RUN pip install beautifulsoup4 && \
     pip install redis && \
     pip install pymongo && \
     pip install elasticsearch && \
-    pip install socketio-client
+    pip install socketio-client && \
     pip install pyinstaller
     #apt-get install -y python-lxml
 ################ [爬虫相关] ################
