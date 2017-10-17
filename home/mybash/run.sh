@@ -7,7 +7,7 @@ if [ "${MYENV}" != "**None**" ] && [ "${MYENV}" != "" ]; then
    #sed -i 's/.*AllowOverride FileInfo.*/                AllowOverride All/' /etc/apache2/sites-enabled/000-default.conf
    sed -i 's/^files = .*/files = \/app\/supervisor_conf\/*.conf \/app\/mybash\/'${MYENV}'\/*.conf/' /etc/supervisor/supervisord.conf
    #sed -i 's/^files = .*/files = \/app\/mybash\/'${MYENV}'\/*.conf/' /etc/supervisor/supervisord.conf
-   #crontab < root
+   #crontab < cronjob
    #cron
    #ln -s -f /app/mybash/${MYENV}/logstash/logstash.conf /etc/logstash/conf.d/logstash.conf
    #MYSQL config
