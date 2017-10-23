@@ -20,21 +20,18 @@ RUN cat /home/GPG-KEY-elasticsearch | apt-key add - && \
     echo 'deb http://packages.elasticsearch.org/kibana/4.1/debian stable main' >> /etc/apt/sources.list
 
 # Install packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen && \
-    mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
-    sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
-    sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-    apt-get install -y build-essential g++ curl libssl-dev git subversion vim libxml2-dev python-software-properties software-properties-common byobu htop man unzip lrzsz wget supervisor && \
-    apt-get install -y apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl php5-dev php5-mysql nginx && \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen \
+    build-essential g++ curl libssl-dev git subversion vim libxml2-dev python-software-properties software-properties-common byobu htop man lrzsz wget supervisor \
+    # webserver
+    apache2 libapache2-mod-php5 php5-redis pwgen php-apc php5-mcrypt php5-gd php5-curl php5-dev php5-mysql nginx \
     #端口转发工具
-    apt-get install -y rinetd && \
-    #7z安装
-    apt-get install -y p7zip p7zip-full && \
+    rinetd \
+    #压缩工具安装
+    unzip p7zip p7zip-full \
     #mongodb redis mysql
-    apt-get install -y mongodb redis-server mysql-server && \
+    mongodb redis-server mysql-server \
     ################ [Install PIP] ################
-    apt-get install -y python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev python-lxml && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    python-pip python3-pip python-pyside xvfb ipython libffi-dev python-dev libmysqlclient-dev libmysqld-dev python-lxml \
 
 ################ [elasticsearch packages] ################
 #RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
@@ -45,7 +42,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
 ################ [elasticsearch packages] ################
 
 ################ [Install logstash] ################
-    apt-get install -y openjdk-7-jre-headless logstash && \
+    openjdk-7-jre-headless logstash && \
     # 用完包管理器后安排打扫卫生可以显著的减少镜像大小.
     apt-get clean && \
     apt-get autoclean && \
@@ -53,6 +50,18 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-
     # */
 ADD logstash/logstash.conf /etc/logstash/conf.d/
 ################ [Install logstash] ################
+
+################ [sshd] ################
+RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+    sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
+    sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+################ [sshd] ################
+
+################ [apache2] ################
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+################ [apache2] ################
+
+
 
 
 ################ [Install elasticsearch ] ################

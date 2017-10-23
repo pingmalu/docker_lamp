@@ -5,6 +5,10 @@ lamp 持久化环境
 
 	docker run -p 771:22 -p 772:80 -p 773:3306 -e ROOT_PASS=pass -e MYSQL_PASS=pass -v /root/app/:/app -d xxxx
 
+Build:
+
+	docker build -t docker_lamp:base -f docker_lamp/Dockerfile docker_lamp/
+
 Elasticsearch:
 
 	vim /app/mybash/firstrun.sh
